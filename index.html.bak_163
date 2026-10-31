@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qnassio — Product Designer / Портфолио продуктового дизайнера</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- Фон: 3D мятая офисная бумага / тетрадь в клетку со скрепками, карандашами и ручками -->
+  <canvas id="paper-canvas"></canvas>
+
+  <!-- Интерактивный дизайнерский курсор -->
+  <div id="cyber-cursor"></div>
+  <div id="cyber-cursor-follower"></div>
+
+  <!-- Верхнее меню -->
+  <header class="cyber-nav">
+    <div class="brand-badge">
+      <div class="brand-logomark">QNA<span>S</span>SIO</div>
+      <div class="brand-protocol">PRODUCT DESIGNER // 2026</div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-item active">Главная</a></li>
+      <li><a href="#pillars" class="nav-item">Подход</a></li>
+      <li><a href="#box-section" class="nav-item">Коробка</a></li>
+      <li><a href="#works" class="nav-item">Кейсы</a></li>
+      <li><a href="#manifesto" class="nav-item">Обо мне</a></li>
+      <li><a href="#contacts" class="nav-item">Контакты</a></li>
+    </ul>
+
+    <div class="nav-controls">
+      <div id="scroll-progress-badge" class="hud-tag alert">[ СКРОЛЛ: 00% ]</div>
+      <button id="sound-btn" class="sound-toggle-btn" aria-label="Включить звук">
+        <div class="sound-bars">
+          <span></span><span></span><span></span>
+        </div>
+        <span id="sound-label">ЗВУК: ВЫКЛ</span>
+      </button>
+      <button class="acquire-access-btn" data-open-modal data-item="Обсудить проект с qnassio" data-serial="Открыт к проектам и предложениям">
+        Связаться
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- СЕКЦИЯ 1: ГЛАВНЫЙ ЭКРАН -->
+    <section id="hero" class="hero-section">
+      <div class="hero-bg-korean">ДИЗАЙН ПРОДУКТА // ОПЫТ</div>
+
+      <div class="hero-hud-top">
+        <div class="hud-tag alert">● СТАТУС: ОТКРЫТ К СИЛЬНЫМ ПРОДУКТОВЫМ ЗАДАЧАМ</div>
+        <div class="hud-tag">[ UI/UX • ДИЗАЙН-СИСТЕМЫ • МОБИЛЬНЫЕ И ВЕБ-ПРИЛОЖЕНИЯ ]</div>
+      </div>
+
+      <!-- 3D-сцена главного экрана -->
+      <div id="hero-3d-box" class="hero-3d-container"></div>
+
+      <!-- Главный заголовок -->
+      <div class="hero-title-container">
+        <h1 class="hero-brand-title">QNA<span class="red-char">S</span>SIO</h1>
+        <div class="hero-subtitle-editorial">SENIOR PRODUCT DESIGNER</div>
+        <p class="hero-editorial-quote">«Создаю продуманные цифровые продукты: от глубокой логики и CJM до безупречной типографики и тактильного микро-опыта.»</p>
+      </div>
+
+      <!-- Режимы отображения -->
+      <div class="hero-controls-bar">
+        <button class="mode-btn active" data-mode="obsidian">[ 01: МАТОВЫЙ СТИЛЬ ]</button>
+        <button class="mode-btn" data-mode="chrome">[ 02: ЖИДКИЙ ХРОМ ]</button>
+        <button class="mode-btn" data-mode="wireframe">[ 03: КАРКАС / СЕТКА ]</button>
+        <button class="mode-btn" data-mode="pulse">[ 04: АКЦЕНТНЫЙ ПУЛЬС ]</button>
+        <button id="explode-btn" class="mode-btn explode-toggle-btn">[ ⚡ РАЗОБРАТЬ ПО СЛОЯМ ]</button>
+      </div>
+    </section>
+
+    <!-- ПАНЕЛЬ: ВЫБОР ФАКТУРЫ БУМАГИ И ПАЛИТРА -->
+    <div class="palette-bar-container">
+      <div class="palette-label">ФАКТУРА РАБОЧЕГО СТОЛА И ПАЛИТРА СТУДИИ</div>
+      
+      <div style="display: flex; gap: 0.8rem; align-items: center;">
+        <span class="hud-tag" style="font-size: 0.68rem;">БУМАГА:</span>
+        <button id="paper-mode-dark" class="mode-btn active" style="font-size: 0.65rem;">[ 🌑 ТЕМНАЯ ТЕТРАДЬ В КЛЕТКУ ]</button>
+        <button id="paper-mode-cream" class="mode-btn" style="font-size: 0.65rem;">[ 📜 СВЕТЛАЯ ОФИСНАЯ БУМАГА ]</button>
+      </div>
+
+      <div class="palette-swatches">
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background-color: #E3142A; box-shadow: 0 0 10px #E3142A;"></div>
+          <span class="swatch-code">#E3142A</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background-color: #FFE1BF;"></div>
+          <span class="swatch-code">#FFE1BF</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background-color: #565656;"></div>
+          <span class="swatch-code">#565656</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background-color: #000000; border-color: #565656;"></div>
+          <span class="swatch-code">#000000</span>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background-color: #FFFFFF;"></div>
+          <span class="swatch-code">#FFFFFF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕКЦИЯ 2: 3D АВАТАР QNASSIO И ЗАПИСКИ-СТОЛПЫ ДИЗАЙНА -->
+    <section id="pillars" class="rules-section">
+      <div class="section-header-editorial">
+        <div>
+          <div class="editorial-tag">// ПОДХОД К ДИЗАЙНУ</div>
+          <h2 class="editorial-title">4 ПРИНЦИПА ПРОДУКТОВОГО МАСТЕРСТВА</h2>
+        </div>
+        <div class="editorial-subtitle">
+          3D-аватар qnassio следит за курсором и прыгает по запискам при наведении.
+        </div>
+      </div>
+
+      <!-- Сетка с записками и 3D-аватаром в центре -->
+      <div class="orbital-rules-container">
+        <!-- 3D Аватар в центре вместо планеты -->
+        <div id="avatar-core-box" class="orbital-core-canvas-container" title="Нажмите на аватара, чтобы он сделал прыжок!"></div>
+
+        <!-- Записка 1 -->
+        <div class="rule-quadrant-card note-card top-left" data-rule="1">
+          <div class="note-pin clip-pin"></div>
+          <div class="note-tape"></div>
+          <div class="rule-number">ЗАПИСКА №01 // ЛОГИКА И СИСТЕМНОСТЬ</div>
+          <h3 class="rule-title">ДИЗАЙН-СИСТЕМЫ И МАСШТАБ</h3>
+          <p class="rule-desc">
+            Разрабатываю гибкие дизайн-системы и библиотеки компонентов, которые легко развивать продуктовой команде. Никакого хаоса в макетах — четкая компонентная база, сетки и прозрачные гайдлайны.
+          </p>
+        </div>
+
+        <!-- Записка 2 -->
+        <div class="rule-quadrant-card note-card top-right" data-rule="2">
+          <div class="note-pin red-pin"></div>
+          <div class="note-tape"></div>
+          <div class="rule-number">ЗАПИСКА №02 // ПОЛЬЗОВАТЕЛЬСКИЙ ОПЫТ</div>
+          <h3 class="rule-title">ГЛУБОКИЙ UX И ЭРГОНОМИКА</h3>
+          <p class="rule-desc">
+            Упрощаю сложные пользовательские сценарии до интуитивных шагов. Проектирую интерфейсы на основе исследований, тепловых карт и поведенческой психологии, чтобы пользователи достигали цели без лишних кликов.
+          </p>
+        </div>
+
+        <!-- Записка 3 -->
+        <div class="rule-quadrant-card note-card bottom-left" data-rule="3">
+          <div class="note-pin clip-pin"></div>
+          <div class="note-tape"></div>
+          <div class="rule-number">ЗАПИСКА №03 // ВИЗУАЛЬНЫЙ ВКУС</div>
+          <h3 class="rule-title">ЭСТЕТИКА И ТИПОГРАФИКА</h3>
+          <p class="rule-desc">
+            Высокий визуальный уровень, вдохновленный журнальной версткой и чистым минимализмом. Точная иерархия шрифтов, ритм свободного пространства и выверенные цветовые контрасты, создающие дорогой образ продукта.
+          </p>
+        </div>
+
+        <!-- Записка 4 -->
+        <div class="rule-quadrant-card note-card bottom-right" data-rule="4">
+          <div class="note-pin red-pin"></div>
+          <div class="note-tape"></div>
+          <div class="rule-number">ЗАПИСКА №04 // ЖИЗНЬ В ИНТЕРФЕЙСЕ</div>
+          <h3 class="rule-title">МИКРО-АНИМАЦИИ И ТАКТИЛЬНОСТЬ</h3>
+          <p class="rule-desc">
+            Оживляю интерфейс плавными переходами, естественной физикой жестов и обратной связью. Продукт ощущается отзывчивым и живым, доставляя эстетическое удовольствие в каждом взаимодействии.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: ИНТЕРАКТИВНАЯ КОРОБКА С КАНЦЕЛЯРИЕЙ (ПОТРЯСТИ КОРОБКУ) -->
+    <section id="box-section" class="interactive-box-section">
+      <div class="section-header-editorial">
+        <div>
+          <div class="editorial-tag">// ИНТЕРАКТИВНЫЙ РАБОЧИЙ СТОЛ</div>
+          <h2 class="editorial-title">КОРОБКА С КАНЦЕЛЯРИЕЙ ДИЗАЙНЕРА</h2>
+        </div>
+        <div class="editorial-subtitle">
+          Потрясите коробку: из нее высыпется офисный инвентарь (скрепки, карандаши, записки) и выпрыгнет 3D-аватар!
+        </div>
+      </div>
+
+      <div class="crate-interactive-container">
+        <!-- 3D Картонная коробка -->
+        <div id="stationery-crate" class="stationery-crate-box" title="Нажмите, чтобы потрясти коробку!">
+          <div class="crate-lid crate-lid-left"></div>
+          <div class="crate-lid crate-lid-right"></div>
+          <div class="crate-body-face">
+            <span class="crate-label">📦 DESK SUPPLIES // QNASSIO</span>
+            <span class="crate-sub">FRAGILE • DESIGN INVENTORY</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button id="shake-box-btn" class="primary-order-btn" style="max-width: 320px;">
+            📦 ПОТРЯСТИ КОРОБКУ
+          </button>
+          <span id="inventory-count-badge" class="hud-tag">[ ВЫСЫПАНО ИНВЕНТАРЯ: 0 ШТ. ]</span>
+        </div>
+
+        <!-- Место, куда разлетается инвентарь -->
+        <div id="spilled-items-stage" class="spilled-items-container"></div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: ИЗБРАННЫЕ ПРОДУКТОВЫЕ КЕЙСЫ (В ВИДЕ ЗАПИСОК) -->
+    <section id="works" class="lookbook-section">
+      <div class="section-header-editorial">
+        <div>
+          <div class="editorial-tag">// РЕАЛИЗОВАННЫЕ ПРОЕКТЫ</div>
+          <h2 class="editorial-title">ИЗБРАННЫЕ КЕЙСЫ</h2>
+        </div>
+        <div class="editorial-subtitle">
+          Реальные продуктовые решения: от аналитики и пользовательских путей до финального запуска.
+        </div>
+      </div>
+
+      <div class="lookbook-grid">
+        <!-- Кейс 1 (Записка-полароид) -->
+        <div class="lookbook-card note-card interactive-card">
+          <div class="note-tape"></div>
+          <div class="note-pin clip-pin"></div>
+          <div class="card-image-box">
+            <span class="card-num-badge">01</span>
+            <img src="/assets/synth_ref.png" alt="FinTech Приложение" style="object-position: 25% 65%;" />
+          </div>
+          <div class="card-info">
+            <h4 class="card-title">FLOWLY // БАНКИНГ НОВОГО ПОКОЛЕНИЯ</h4>
+            <div class="card-tags">FINTECH • МОБИЛЬНОЕ ПРИЛОЖЕНИЕ • ДИЗАЙН-СИСТЕМА</div>
+            <p style="font-size: 0.85rem; color: #a4a4ac; line-height: 1.6; margin-top: 0.5rem;">
+              Полный редизайн мобильного банка и инвестиционного кабинета. Сократили время прохождения онбординга на 35% и увеличили суточную активность пользователей на 42%.
+            </p>
+            <div class="case-metrics-row">
+              <span class="metric-pill">+42% DAU</span>
+              <span class="metric-pill">4.9 ★ В App Store</span>
+              <span class="metric-pill">250+ Компонентов</span>
+            </div>
+            <button class="mode-btn" style="border: 1px solid var(--color-border); align-self: flex-start; margin-top: 1rem;" data-open-modal data-item="Кейс 01: Flowly Банкинг" data-serial="FinTech Mobile App">
+              Посмотреть кейс
+            </button>
+          </div>
+        </div>
+
+        <!-- Кейс 2 (Записка-полароид) -->
+        <div class="lookbook-card note-card interactive-card">
+          <div class="note-tape"></div>
+          <div class="note-pin red-pin"></div>
+          <div class="card-image-box">
+            <span class="card-num-badge">02</span>
+            <img src="/assets/synth_ref.png" alt="SaaS Платформа" style="object-position: 50% 65%;" />
+          </div>
+          <div class="card-info">
+            <h4 class="card-title">AURA // КРЕАТИВНАЯ SAAS-ПЛАТФОРМА</h4>
+            <div class="card-tags">B2B SAAS • ВЕБ-СЕРВИС • СЛОЖНЫЕ ИНТЕРФЕЙСЫ</div>
+            <p style="font-size: 0.85rem; color: #a4a4ac; line-height: 1.6; margin-top: 0.5rem;">
+              Инструмент для совместной работы дизайнеров и маркетологов. Разработали модульный холст с drag-and-drop и бесшовную синхронизацию версий проектов.
+            </p>
+            <div class="case-metrics-row">
+              <span class="metric-pill">1.2M Авторов</span>
+              <span class="metric-pill">-28% Churn Rate</span>
+              <span class="metric-pill">Интуитивный UX</span>
+            </div>
+            <button class="mode-btn" style="border: 1px solid var(--color-border); align-self: flex-start; margin-top: 1rem;" data-open-modal data-item="Кейс 02: Aura SaaS" data-serial="Creative Workspace">
+              Посмотреть кейс
+            </button>
+          </div>
+        </div>
+
+        <!-- Кейс 3 (Записка-полароид) -->
+        <div class="lookbook-card note-card interactive-card">
+          <div class="note-tape"></div>
+          <div class="note-pin clip-pin"></div>
+          <div class="card-image-box">
+            <span class="card-num-badge">03</span>
+            <img src="/assets/synth_ref.png" alt="Health & Fitness App" style="object-position: 85% 65%;" />
+          </div>
+          <div class="card-info">
+            <h4 class="card-title">PULSE // ТРЕКЕР ЗДОРОВЬЯ И ПРИВЫЧЕК</h4>
+            <div class="card-tags">IOS • ТАКТИЛЬНЫЙ ДИЗАЙН • HAPTIC & АНИМАЦИИ</div>
+            <p style="font-size: 0.85rem; color: #a4a4ac; line-height: 1.6; margin-top: 0.5rem;">
+              Минималистичный трекер с акцентом на эмоциональную привязанность. Тактильные вибро-отклики, чистые графики прогресса и виджеты для главного экрана iOS.
+            </p>
+            <div class="case-metrics-row">
+              <span class="metric-pill">68% Retention 30D</span>
+              <span class="metric-pill">Apple Featured</span>
+              <span class="metric-pill">Минимализм</span>
+            </div>
+            <button class="mode-btn" style="border: 1px solid var(--color-border); align-self: flex-start; margin-top: 1rem;" data-open-modal data-item="Кейс 03: Pulse Health" data-serial="iOS Mobile Product">
+              Посмотреть кейс
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 5: МАНИФЕСТ ДИЗАЙНЕРА -->
+    <section id="manifesto" class="armor-banner-section">
+      <div class="armor-top-tag">ФИЛОСОФИЯ ДИЗАЙНА // ЧИСТЫЙ ОПЫТ</div>
+      
+      <div class="giant-korean-logotype">
+        <span class="tech-char">Q</span>
+        <span>디</span>
+        <span>자</span>
+        <span class="tech-char">S</span>
+      </div>
+
+      <div class="armor-manifesto-text">
+        <p>
+          <strong>QNASSIO // СМЫСЛ В КАЖДОМ ПИКСЕЛЕ</strong><br />
+          Дизайн — это не украшательство готового кода, а фундамент продукта. Я проектирую интерфейсы, которые уважают время и внимание пользователя, решают бизнес-задачи и вызывают неподдельное удовольствие от использования.
+        </p>
+      </div>
+
+      <div style="margin-top: 3rem;">
+        <button class="primary-order-btn" style="max-width: 340px; display: inline-block;" data-open-modal data-item="Обсудить продуктовый проект" data-serial="qnassio // Прямой контакт">
+          ОБСУДИТЬ ВАШ ПРОДУКТ
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ЯРКИЙ, ЗАМЕТНЫЙ И ЧИТАЕМЫЙ ФУТЕР -->
+  <footer id="contacts" class="cyber-footer prominent-designer-footer">
+    <div class="footer-top-row">
+      <!-- Блок бренда и позиционирования -->
+      <div class="footer-hero-brand">
+        <div class="footer-brand-title">QNA<span>S</span>SIO</div>
+        <div class="footer-brand-role">SENIOR PRODUCT DESIGNER</div>
+        <p class="footer-brand-bio">
+          Специализируюсь на создании сильных веб-сервисов, мобильных приложений и дизайн-систем. Открыт к продуктовому лидерству, дизайн-спринтам и интересным коллаборациям.
+        </p>
+        <div class="footer-status-pill">
+          <span class="status-indicator-dot"></span>
+          <span>ДОСТУПЕН ДЛЯ ПРОЕКТОВ И КОНТАКТА</span>
+        </div>
+      </div>
+
+      <!-- Колонки навигации и соцсетей -->
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>НАВИГАЦИЯ</h4>
+          <ul>
+            <li><a href="#hero">00 // Главный экран</a></li>
+            <li><a href="#pillars">01 // 4 принципа</a></li>
+            <li><a href="#box-section">02 // Коробка инвентаря</a></li>
+            <li><a href="#works">03 // Избранные кейсы</a></li>
+            <li><a href="#manifesto">04 // Манифест</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>КОМПЕТЕНЦИИ</h4>
+          <ul>
+            <li><a href="#works">Product Design (UI/UX)</a></li>
+            <li><a href="#pillars">Дизайн-системы в Figma</a></li>
+            <li><a href="#works">Прототипирование и анимации</a></li>
+            <li><a href="#pillars">CJM, исследования и UX-аудит</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>СВЯЗАТЬСЯ СО МНОЙ</h4>
+          <ul class="footer-social-tags">
+            <li><a href="https://t.me/qnassio" target="_blank" class="contact-tag-badge">✈️ Telegram: t.me/qnassio</a></li>
+            <li><a href="mailto:hello@qnass.io" class="contact-tag-badge">✉️ Email: hello@qnass.io</a></li>
+            <li><a href="https://read.cv/qnassio" target="_blank" class="contact-tag-badge">📄 Read.cv: qnassio</a></li>
+            <li><a href="https://x.com/qnassio" target="_blank" class="contact-tag-badge">𝕏 Twitter: qnassio</a></li>
+            <li><a href="https://github.com/qnassio" target="_blank" class="contact-tag-badge">🐙 GitHub: qnassio</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-row">
+      <span class="footer-copyright">© 2026 QNASSIO. ВСЕ ПРАВА ЗАЩИЩЕНЫ. СДЕЛАНО С ВКУСОМ И ВНИМАНИЕМ К ДЕТАЛЯМ.</span>
+      <span class="footer-geo-tag">📍 ТОКИО / БЕРЛИН / REMOTE</span>
+    </div>
+  </footer>
+
+  <!-- МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ -->
+  <div id="modal-backdrop"></div>
+  <div id="order-modal">
+    <div class="modal-header">
+      <span class="modal-title">ОБСУДИТЬ ПРОЕКТ С QNASSIO</span>
+      <button id="modal-close" class="modal-close-btn">[ ЗАКРЫТЬ ✕ ]</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="hud-tag" style="font-size: 0.75rem; margin-bottom: 0.3rem; color: var(--color-red);">ФОРМАТ СОТРУДНИЧЕСТВА</div>
+        <h4 id="modal-item-title" class="modal-item-highlight">ПРОДУКТОВЫЙ ДИЗАЙН-СПРИНТ</h4>
+        <div id="modal-item-serial" class="modal-serial-badge">ОТКРЫТ К ПРЕДЛОЖЕНИЯМ // 2026</div>
+      </div>
+
+      <div id="modal-status-text" class="modal-status-box">
+        ГОТОВ ОБСУДИТЬ ВАШИ ЦЕЛИ, СРОКИ И ФОРМАТ РАБОТЫ
+      </div>
+
+      <p style="font-size: 0.88rem; color: #a4a4af; line-height: 1.6;">
+        Напишите мне в Telegram или отправьте письмо на почту. Отвечаю оперативно в течение нескольких часов.
+      </p>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="https://t.me/qnassio" target="_blank" class="modal-confirm-btn" style="text-align: center; text-decoration: none; display: block; flex: 1;">
+          НАПИСАТЬ В TELEGRAM
+        </a>
+        <a href="mailto:hello@qnass.io" class="modal-confirm-btn" style="text-align: center; text-decoration: none; display: block; flex: 1; background: var(--color-cream); color: #000;">
+          ОТПРАВИТЬ EMAIL
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

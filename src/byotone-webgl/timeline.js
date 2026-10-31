@@ -1,0 +1,1 @@
+function e(e){return e*e*e*e*(35+e*(-84+e*(70-20*e)))}function t([t,n],r){return r<=t?0:r>=n?1:e((r-t)/(n-t))}function n(e){return e*e*(3-2*e)}function r(e,t,n,r){let i=5/n,a=Math.exp(-i*r),o=e.value-t,s=(e.velocity+i*o)*r;e.value=t+(o+s)*a,e.velocity=(e.velocity-i*s)*a}export{n,r,t};

@@ -1,0 +1,135 @@
+import { Hero3DScene } from './three/heroScene.js';
+import { PaperBackground } from './three/paperBackground.js';
+import { AvatarEngine } from './three/avatarEngine.js';
+import { SupplyBox } from './ui/supplyBox.js';
+import { CyberCursor } from './ui/cursor.js';
+import { OrderModal } from './ui/modal.js';
+import { ScrollEngine } from './ui/scrollEngine.js';
+import { cyberAudio } from './audio.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Дизайнерский курсор и модальное окно обратной связи
+  new CyberCursor();
+  new OrderModal();
+
+  // 2. Фон: Мятая офисная бумага / тетрадь в клетку с 3D скрепками, карандашами и ручками
+  const paperCanvas = document.getElementById('paper-canvas');
+  let paperBg = null;
+  if (paperCanvas) {
+    paperBg = new PaperBackground(paperCanvas);
+  }
+
+  // Переключатель фактуры бумаги (темная тетрадь в клетку vs светлая офисная бумага)
+  const paperDarkBtn = document.getElementById('paper-mode-dark');
+  const paperCreamBtn = document.getElementById('paper-mode-cream');
+
+  if (paperDarkBtn && paperCreamBtn && paperBg) {
+    paperDarkBtn.addEventListener('click', () => {
+      cyberAudio.playClick();
+      paperDarkBtn.classList.add('active');
+      paperCreamBtn.classList.remove('active');
+      paperBg.setPaperTone(false);
+    });
+
+    paperCreamBtn.addEventListener('click', () => {
+      cyberAudio.playClick();
+      paperCreamBtn.classList.add('active');
+      paperDarkBtn.classList.remove('active');
+      paperBg.setPaperTone(true);
+    });
+  }
+
+  // 3. 3D-сцена главного экрана (Цифровой скульптурный образ)
+  const heroBox = document.getElementById('hero-3d-box');
+  let heroScene = null;
+  if (heroBox) {
+    heroScene = new Hero3DScene(heroBox);
+  }
+
+  // Переключение режимов 3D-модели
+  const modeButtons = document.querySelectorAll('.hero-controls-bar .mode-btn[data-mode]');
+  modeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      cyberAudio.playClick();
+      modeButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const mode = btn.getAttribute('data-mode');
+      if (heroScene) {
+        heroScene.setMaterialMode(mode);
+      }
+    });
+  });
+
+  // Кнопка разборки по слоям
+  const explodeBtn = document.getElementById('explode-btn');
+  if (explodeBtn && heroScene) {
+    explodeBtn.addEventListener('click', () => {
+      cyberAudio.playScan();
+      const isExploded = heroScene.toggleExplode();
+      explodeBtn.classList.toggle('active', isExploded);
+      explodeBtn.textContent = isExploded ? '[ ✕ СОБРАТЬ ПО СЛОЯМ ]' : '[ ⚡ РАЗОБРАТЬ ПО СЛОЯМ ]';
+    });
+  }
+
+  // 4. 3D Аватар qnassio (вместо планеты): следит глазами за курсором и прыгает между записками
+  const avatarBox = document.getElementById('avatar-core-box');
+  let avatarEngine = null;
+  if (avatarBox) {
+    avatarEngine = new AvatarEngine(avatarBox);
+  }
+
+  // При наведении на записки принципов аватар прыгает на соответствующую платформу
+  const ruleCards = document.querySelectorAll('.rule-quadrant-card');
+  ruleCards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      cyberAudio.playHover();
+      ruleCards.forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+      const ruleIndex = parseInt(card.getAttribute('data-rule'), 10);
+      if (avatarEngine) {
+        avatarEngine.jumpTo(ruleIndex);
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      if (avatarEngine) {
+        avatarEngine.jumpTo(0); // Возврат в центр
+      }
+    });
+  });
+
+  // 5. Интерактивная коробка с канцелярией (Потрясти коробку)
+  new SupplyBox(avatarEngine);
+
+  // 6. Скролл-движок: плавный поворот сцены и отслеживание активного раздела
+  new ScrollEngine({
+    onScrollProgress: (progress, scrollY) => {
+      if (heroScene) {
+        heroScene.setScrollProgress(progress);
+      }
+    },
+    onSectionChange: (sectionId) => {
+      cyberAudio.playHover();
+    }
+  });
+
+  // 7. Переключатель звука (Web Audio API)
+  const soundBtn = document.getElementById('sound-btn');
+  const soundLabel = document.getElementById('sound-label');
+  if (soundBtn) {
+    soundBtn.addEventListener('click', () => {
+      const isAudioActive = cyberAudio.toggle();
+      soundBtn.classList.toggle('active', isAudioActive);
+      if (soundLabel) {
+        soundLabel.textContent = isAudioActive ? 'ЗВУК: ВКЛ' : 'ЗВУК: ВЫКЛ';
+      }
+    });
+  }
+
+  // Тактильные звуки при наведении на интерактивные элементы
+  document.querySelectorAll('a, button, .interactive-card, .swatch-item, .spilled-item-tag').forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cyberAudio.playHover();
+    });
+  });
+});

@@ -1,0 +1,1 @@
+var e=(e,t,n)=>Math.min(Math.max(e,t<n?t:n),t>n?t:n),t=(e,t,n)=>Math.min(1,Math.max(0,(e-t)/(n-t))),n=(e,t,n,r)=>e+(t-e)*(1-Math.exp(-n*r)),r=(e,t,n)=>{let r=n-t;return t+((e-t)%r+r)%r};export{t as i,r as n,n as r,e as t};
